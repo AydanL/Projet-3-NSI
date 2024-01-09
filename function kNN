@@ -1,0 +1,37 @@
+from math import sqrt
+def kNearestNeighbours(profile: dict, data: list):
+    '''
+    Parameters
+    ----------
+    profile : dict
+        Dictionary with the caracteristics of the profile that will be analysed
+    data : list
+        list containing all of the known profiles to compare with the target profile
+
+    Returns
+    -------
+    the result of the analyse, the house chosen for the target profile. string variable.
+    '''
+    dataConverted = []
+    for i in range(len(data)):
+        distCourage = profile["courage"] - data[i - 1]["courage"]
+        distAmbition = profile["ambition"] - data[i - 1]["ambition"]
+        distIntelligence = profile["intelligence"] - data[i - 1]["intelligence"]
+        distGood = profile["good"] - data[i - 1]["good"]
+        dataConverted.append({"distCourage": distCourage,
+                              "distAmbition": distAmbition,
+                              "distIntelligence": distIntelligence,
+                              "distGood": distGood,
+                              "house": data[i - 1]["house"] })
+        
+    for i in range(len(dataConverted)):
+        distCourage = (dataConverted[i - 1]["distCourage"])
+        distAmbition = (dataConverted[i - 1]["distAmbition"])
+        distIntelligence = (dataConverted[i - 1]["distIntelligence"])
+        distGood = (dataConverted[i - 1]["distGood"])
+        dataConverted[i - 1]["distance"] = sqrt(distCourage ** 2 + 
+                                                distAmbition ** 2 + 
+                                                distIntelligence ** 2 + 
+                                                distGood ** 2)
+    
+    dataConverted.sort(key=lambda x: x.get('distance'))
