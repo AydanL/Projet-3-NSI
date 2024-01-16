@@ -12,6 +12,7 @@ def kNearestNeighbours(profile: dict, data: list):
     -------
     the result of the analyse, the house chosen for the target profile. string variable.
     '''
+    k = 5
     dataConverted = []
     for i in range(len(data)):
         distCourage = profile["courage"] - data[i - 1]["courage"]
@@ -35,3 +36,12 @@ def kNearestNeighbours(profile: dict, data: list):
                                                 distGood ** 2)
     
     dataConverted.sort(key=lambda x: x.get('distance'))
+    houses = {'gryffindor': 0, 'ravenclaw': 0, 'slytherin': 0, 'hufflepuff': 0}
+    for i in range(k):
+        houses[data['house']] += 1
+    houses = [['gryffindor', houses['gryffindor']], 
+              ['ravenclaw', houses['ravenclaw']],
+              ['slytherin', houses['slytherin']],
+              ['hufflepuff', houses['hufflepuff']]]
+    houses.sort(key=lambda x: x[1], reversed = True)
+    return houses[0][0]
