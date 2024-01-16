@@ -12,6 +12,8 @@ def kNearestNeighbours(profile: dict, data: list):
     -------
     the result of the analyse, the house chosen for the target profile. string variable.
     '''
+    assert type(profile) == 'dict'
+    assert type(data) == 'list'
     k = 5
     dataConverted = []
     for i in range(len(data)):
