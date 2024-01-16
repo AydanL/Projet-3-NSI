@@ -1,0 +1,24 @@
+"""
+def ihm():
+"""
+"""
+data = characters()
+house = kNearestNeighbours(profile, data):
+for character in examples:
+    print(f"The character {character} is near to the house {house}. ")
+        
+"""        
+def ihm_2():
+    """
+    """
+    print("On a scale of 1 to 10, 1 being the lowest and 10 the highest:\n")
+    courage = input("How courageous are you?\n")
+    ambition = input("How ambitious are you?\n")
+    intelligence = input("How intelligent are you?\n")
+    good = input("How good are you?\n")
+    
+    profile = [{"courage": courage, "ambition": ambition, "intelligence": intelligence, "good": good}] 
+    
+    return profile
+
+print(ihm_2())
