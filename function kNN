@@ -47,3 +47,87 @@ def kNearestNeighbours(profile: dict, data: list):
               ['hufflepuff', houses['hufflepuff']]]
     houses.sort(key=lambda x: x[1], reversed = True)
     return houses[0][0]
+
+
+from random import randint
+
+# Extraction d'un tiers des données pour test de validation  
+
+def creation_data_test(tab):
+    character_test = []
+    copy_character = character[:]
+    for _ in range(len(copy_character) // 4):
+        character_test.append(copy_character.pop(randint(0, len(copy_character) - 1)))
+    return character_test, copy_character
+
+def distance(character1, character2, methode='euclidienne'):
+    return sqrt((character1['Courage (normalized)'] - character2['Courage (normalized)']) ** 2
+                + (character1['Ambitious (normalized)'] - character2['Ambitious (normalized)']) ** 2
+                + (character1['Intelligence (normalized)'] - character2['Intelligence (normalized)']) ** 2
+                + (character1['Good (normalized)'] - character2['Good (normalized)']) ** 2)
+
+def added_distances(tab, unknown_character):
+    for character in tab:
+        character['Distance'] = distance(unknown_character, character)
+    return tab
+
+def best_house(tab):
+    houses = {}
+    for neighbour in tab:
+        if neighbour['House'] in houses:
+            houses[neighbour['House']] += 1
+        else:
+            houses[neighbour['House']] = 1
+    maximum = 0
+    for house, nb in houses.items():
+        if nb > maximum:
+            maximum = nb
+            top_house = house
+    return top_house
+
+nb_tests = 100
+
+for k in range(1, 31):
+    bingo = 0
+    for test in range(nb_tests):
+        character_test, character_reference = creation_data_test(character)
+        for target_character in character_test:
+            character_reference = added_distances(character_reference, target_character)
+            neighbours = sorted(character_reference, key=lambda x: x['Distance'])
+            if best_house(neighbours[:k]) == target_character['Poste']:
+                bingo += 1
+    print(f"Percentage  k = {k} : {round(bingo / len(joueurs_test))}")
+
+def ihm():
+    """
+    Parameters
+    ----------
+    None
+
+    Returns
+    -------
+    None
+    """
+    data = characters()
+    house = kNearestNeighbours(profile, data)
+    for character in examples:
+        print(f"The character {character} is near to the house {house}. ")
+        
+        
+def ihm_2():
+    """
+    Parameters
+    ----------
+    None
+
+    Returns
+    -------
+    None
+    """
+    print("On a scale of 1 to 10, 1 being the lowest and 10 the highest:\n")
+    courage = input("How courageous are you?")
+    ambition = input("How ambitious are you?")
+    intelligence = input("How intelligent are you?")
+    good = input("How good are you?")
+    
+ihm_2()
