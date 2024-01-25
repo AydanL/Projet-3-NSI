@@ -1,0 +1,154 @@
+# -*- coding: utf-8 -*-
+"""
+Spyder Editor
+
+This is a temporary script file.
+"""
+
+from math import sqrt
+import csv
+def characters():
+    with open("Characters.csv", mode='r', encoding='utf-8') as f:
+        reader = csv.DictReader(f, delimiter=';')
+        characters_tab = [{key : value for key, value in element.items()} for element in reader]
+    
+    with open("Caracteristiques_des_persos.csv", mode='r', encoding='utf-8') as f:
+        reader = csv.DictReader(f, delimiter=';')
+        characteristics_tab = [{key : value for key, value in element.items()} for element in reader]
+  
+    poudlard_characters = []
+    characters_tab.sort(key = lambda x : x['Name'])
+    characteristics_tab.sort(key = lambda x : x['Name'])
+    for poudlard_character in characteristics_tab:
+        for kaggle_character in characters_tab:
+                 if poudlard_character['Name'] == kaggle_character['Name']:
+                    poudlard_character.update(kaggle_character)
+                    poudlard_characters.append(poudlard_character)
+        
+        
+    return poudlard_characters
+        
+print(characters())
+def kNearestNeighbours(profile: dict, data: list):
+    '''
+    Parameters
+    ----------
+    profile : dict
+        Dictionary with the caracteristics of the profile that will be analysed
+    data : list
+        list containing all of the known profiles to compare with the target profile
+
+    Returns
+    -------
+    the result of the analyse, the house chosen for the target profile. string variable.
+    '''
+    assert type(profile) == 'dict'
+    assert type(data) == 'list'
+    k = 5
+    dataConverted = []
+    for i in range(len(data)):
+        distCourage = profile["courage"] - data[i - 1]["courage"]
+        distAmbition = profile["ambition"] - data[i - 1]["ambition"]
+        distIntelligence = profile["intelligence"] - data[i - 1]["intelligence"]
+        distGood = profile["good"] - data[i - 1]["good"]
+        dataConverted.append({"distCourage": distCourage,
+                              "distAmbition": distAmbition,
+                              "distIntelligence": distIntelligence,
+                              "distGood": distGood,
+                              "house": data[i - 1]["house"] })
+        
+    for i in range(len(dataConverted)):
+        distCourage = (dataConverted[i - 1]["distCourage"])
+        distAmbition = (dataConverted[i - 1]["distAmbition"])
+        distIntelligence = (dataConverted[i - 1]["distIntelligence"])
+        distGood = (dataConverted[i - 1]["distGood"])
+        dataConverted[i - 1]["distance"] = sqrt(distCourage ** 2 + 
+                                                distAmbition ** 2 + 
+                                                distIntelligence ** 2 + 
+                                                distGood ** 2)
+    
+    dataConverted.sort(key=lambda x: x.get('distance'))
+    houses = {'gryffindor': 0, 'ravenclaw': 0, 'slytherin': 0, 'hufflepuff': 0}
+    for i in range(k):
+        houses[data['house']] += 1
+    houses = [['gryffindor', houses['gryffindor']], 
+              ['ravenclaw', houses['ravenclaw']],
+              ['slytherin', houses['slytherin']],
+              ['hufflepuff', houses['hufflepuff']]]
+    houses.sort(key=lambda x: x[1], reversed = True)
+    return houses[0][0]
+
+"""
+from random import randint
+
+# Extraction d'un tiers des données pour test de validation  
+
+def creation_data_test(tab):
+    character_test = []
+    copy_character = characters[:]
+    for _ in range(len(copy_character) // 4):
+        character_test.append(copy_character.pop(randint(0, len(copy_character) - 1)))
+    return character_test, copy_character
+
+def distance(character1, character2, methode='euclidienne'):
+    return sqrt((character1['Courage (normalized)'] - character2['Courage (normalized)']) ** 2
+                + (character1['Ambitious (normalized)'] - character2['Ambitious (normalized)']) ** 2
+                + (character1['Intelligence (normalized)'] - character2['Intelligence (normalized)']) ** 2
+                + (character1['Good (normalized)'] - character2['Good (normalized)']) ** 2)
+
+def added_distances(tab, unknown_character):
+    for character in tab:
+        character['Distance'] = distance(unknown_character, character)
+    return tab
+
+def best_house(tab):
+    houses = {}
+    for neighbour in tab:
+        if neighbour['House'] in houses:
+            houses[neighbour['House']] += 1
+        else:
+            houses[neighbour['House']] = 1
+    maximum = 0
+    for house, nb in houses.items():
+        if nb > maximum:
+            maximum = nb
+            top_house = house
+    return top_house
+
+nb_tests = 100
+
+for k in range(1, 31):
+    bingo = 0
+    for test in range(nb_tests):
+        character_test, character_reference = creation_data_test(characters)
+        for target_character in character_test:
+            character_reference = added_distances(character_reference, target_character)
+            neighbours = sorted(character_reference, key=lambda x: x['Distance'])
+            if best_house(neighbours[:k]) == target_character['Poste']:
+                bingo += 1
+    print(f"Percentage  k = {k} : {round(bingo / len(character_test))}")
+"""
+
+def ihm():
+    profile = [{"courage": 9, "ambition": 2, "intelligence": 8, "good":9 },
+                {"courage": 6, "ambition": 7, "intelligence": 9, "good":7 },
+                {"courage": 3, "ambition": 8, "intelligence": 6, "good":3 },
+                {"courage": 2, "ambition": 3, "intelligence": 7, "good":8 },
+                {"courage": 3, "ambition": 4, "intelligence": 8, "good":8 }
+              ]
+    data = characters()
+    for character in profile:
+        house = kNearestNeighbours(character, data)
+        print(f"The character {character} is near to the house {house}. ")
+        
+def ihm_2():
+    print("On a scale of 1 to 10, 1 being the lowest and 10 the highest:\n")
+    courage = input("How courageous are you?\n")
+    ambition = input("How ambitious are you\n?")
+    intelligence = input("How intelligent are you\n?")
+    good = input("How good are you?\n")
+    profile = [{"courage": courage, "ambition": ambition, "intelligence": intelligence, "good": good}] 
+    kNearestNeighbours(profile, characters())
+    return profile
+    
+print(ihm())
