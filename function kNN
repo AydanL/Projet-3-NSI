@@ -36,20 +36,22 @@ def kNearestNeighbours(profile: dict, data: list):
     -------
     the result of the analyse, the house chosen for the target profile. string variable.
     '''
-    assert type(profile) == 'dict'
+    '''
+    assert type(profile) == 'list'
     assert type(data) == 'list'
+    '''
     k = 5
     dataConverted = []
-    for i in range(len(data)):
-        distCourage = profile["courage"] - data[i - 1]["courage"]
-        distAmbition = profile["ambition"] - data[i - 1]["ambition"]
-        distIntelligence = profile["intelligence"] - data[i - 1]["intelligence"]
-        distGood = profile["good"] - data[i - 1]["good"]
+    for i in range(1, len(data)):
+        distCourage = int(profile["courage"]) - int(data[i - 1]["Courage"])
+        distAmbition = int(profile["ambition"]) - int(data[i - 1]["Ambition"])
+        distIntelligence = int(profile["intelligence"]) - int(data[i - 1]["Intelligence"])
+        distGood = int(profile["good"]) - int(data[i - 1]["Good"])
         dataConverted.append({"distCourage": distCourage,
                               "distAmbition": distAmbition,
                               "distIntelligence": distIntelligence,
                               "distGood": distGood,
-                              "house": data[i - 1]["house"] })
+                              "house": data[i - 1]["House"] })
         
     for i in range(len(dataConverted)):
         distCourage = (dataConverted[i - 1]["distCourage"])
@@ -62,19 +64,19 @@ def kNearestNeighbours(profile: dict, data: list):
                                                 distGood ** 2)
     
     dataConverted.sort(key=lambda x: x.get('distance'))
-    houses = {'gryffindor': 0, 'ravenclaw': 0, 'slytherin': 0, 'hufflepuff': 0}
+    houses = {'Gryffindor': 0, 'Ravenclaw': 0, 'Slytherin': 0, 'Hufflepuff': 0}
     for i in range(k):
-        houses[data['house']] += 1
-    houses = [['gryffindor', houses['gryffindor']], 
-              ['ravenclaw', houses['ravenclaw']],
-              ['slytherin', houses['slytherin']],
-              ['hufflepuff', houses['hufflepuff']]]
-    houses.sort(key=lambda x: x[1], reversed = True)
+        houses[data[i]['House']] += 1
+    houses = [['gryffindor', houses['Gryffindor']], 
+              ['ravenclaw', houses['Ravenclaw']],
+              ['slytherin', houses['Slytherin']],
+              ['hufflepuff', houses['Hufflepuff']]]
+    houses.sort(key=lambda x: x[1], reverse = True)
     return houses[0][0]
 
 
 from random import randint
-
+"""
 # Extraction d'un tiers des données pour test de validation  
 
 def creation_data_test(tab):
@@ -121,11 +123,18 @@ for k in range(1, 31):
             if best_house(neighbours[:k]) == target_character['Poste']:
                 bingo += 1
     print(f"Percentage  k = {k} : {round(bingo / len(joueurs_test))}")
-
-def ihm():
+"""
+def ihm_1():
+    examples = [
+        {'courage': 9,'ambition': 2,'intelligence': 8,'good': 9},
+        {'courage': 6,'ambition': 7,'intelligence': 9,'good': 7},
+        {'courage': 3,'ambition': 8,'intelligence': 6,'good': 3},
+        {'courage': 2,'ambition': 3,'intelligence': 7,'good': 8},
+        {'courage': 3,'ambition': 4,'intelligence': 8,'good': 8}
+        ]
     data = characters()
-    house = kNearestNeighbours(profile, data)
     for character in examples:
+        house = kNearestNeighbours(character, data)
         print(f"The character {character} is near to the house {house}. ")
         
 def ihm_2():
@@ -134,9 +143,18 @@ def ihm_2():
     ambition = input("How ambitious are you\n?")
     intelligence = input("How intelligent are you\n?")
     good = input("How good are you\n?")
-    profile = [{"courage": courage, "ambition": ambition, "intelligence": intelligence, "good": good}] 
-    kNearestNeighbours(profile, character()):
-    return profile
-    
+    profile = {"courage": courage, "ambition": ambition, "intelligence": intelligence, "good": good}
+    return profile, kNearestNeighbours(profile, characters())
 
+def ihm():
+    answer = input("Do you want to proceed with the default profiles (1) or enter a custom profile (2)? Any other answer stops the program.")
+    while answer in ("1", "2"):
+        if answer == "1":
+            ihm_1()
+        else:
+            ihm_2()
+        answer = input("Do you want to proceed with the default profiles (1) or enter a custom profile (2)? Any other answer stops the program.")
+    print("the program has stopped!")
+
+ihm()
 
