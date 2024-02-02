@@ -64,15 +64,10 @@ def kNearestNeighbours(profile: dict, data: list):
                                                 distGood ** 2)
     
     dataConverted.sort(key=lambda x: x.get('distance'))
-    houses = {'Gryffindor': 0, 'Ravenclaw': 0, 'Slytherin': 0, 'Hufflepuff': 0}
+    houses = {'Gryffindor': 0, 'Slytherin': 0, 'Hufflepuff': 0, 'Ravenclaw': 0}
     for i in range(k):
-        houses[data[i]['House']] += 1
-    houses = [['gryffindor', houses['Gryffindor']], 
-              ['ravenclaw', houses['Ravenclaw']],
-              ['slytherin', houses['Slytherin']],
-              ['hufflepuff', houses['Hufflepuff']]]
-    houses.sort(key=lambda x: x[1], reverse = True)
-    return houses[0][0]
+        houses[dataConverted[i]['house']] += 1
+    return houses
 
 
 from random import randint
