@@ -35,7 +35,7 @@ def kNearestNeighbours(profile: dict, data: list):
     the result of the analyse, the house chosen for the target profile. string variable.
     '''
     '''
-    assert type(profile) == 'list'
+    assert type(profile) == 'dict'
     assert type(data) == 'list'
     '''
     k = 5
@@ -49,7 +49,7 @@ def kNearestNeighbours(profile: dict, data: list):
                               "distAmbition": distAmbition,
                               "distIntelligence": distIntelligence,
                               "distGood": distGood,
-                              "house": data[i - 1]["House"] })
+                              "house": data[i - 1]["House"]})
         
     for i in range(len(dataConverted)):
         distCourage = (dataConverted[i - 1]["distCourage"])
