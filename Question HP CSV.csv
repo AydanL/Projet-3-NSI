@@ -1,0 +1,15 @@
+Questions,Réponse 1,Point 1,Réponse 2,Point 2,Réponse 3,Point 3,Réponse 4,Point 4
+Tu n’as pas fait ton devoir pour aujourd’hui. Tu…,Dis que tu l’as oublié à la maison,-1;1;0;0,Recopies en vif sur ton voisin,1;0;0;-1,Assumes et dis que tu ne l’as pas fait,1;0;0;1,T’absentes comme par hasard aux wc,-1;0;1;0
+Ton parfum de glace préféré c’est…,Chocolat,0;-1;0;1,Carolina reaper,1;0;-1;0,Vanille de Madagascar,-1;0;1;0,Café / Pistache,0;1;0;-1
+Comment préfères tu réviser ?,Sur ordinateur,0;1;0;0,Sur papier,0;0;1;1,Comment ça réviser ?,1;0;-1;0,En groupe,0;0;0;1
+Ton mélange sous-côté préféré c’est...,Coca-mentos,1;0;0;0,Pizza-ananas/ketchup,0;1;0;0,Smoothie carottes-courgette,0;0;1;0,Pâtes au sucre/chocolat ,0;0;0;1
+Quelle plume est la meilleure pour écrire,Phoenix,0;1;1;0,Pigeon,0;-1;0;1,Griffon,1;1;0;0,Aigle,0;1;0;0
+Quel est ton moment préféré de la journée,La nuit,1;0;0;0,Le matin,0;0;1;0,L’aube,0;1;0;0,Le crépuscule,0;0;0;1
+Quel maison Minecraft préfères tu ?,Terre 100 %,0;-1;0;1,Le NETHER,1;0;0;0,Diamant 100 %,0;1;0;0,Chêne ,0;0;1;0
+Quelle est ta matière moldue préférée ?,Mathématiques,1;0;1;0,Français,0;1;1;0,Art/musique,0;0;0;1,Économie,0;0;1;0
+Quel est ta couleur préférée ?,Vert,0;0;0;1,Bleu,0;0;1;0,Rouge,1;0;0;0,Jaune,0;1;0;0
+Quel serait ton futur métier ?,Miss/Mister France,1;1;0;0,Professeur.e,0;0;1;1,Médecin,0;0;1;1,Soldat,1;0;0;1
+Tu fais tes recherches sur…,Google Chrome,0;0;1;0,Darknet,0;1;0;-1,Chat GPT,0;0;1;0,Internet Explorer,1;0;-1;0
+Quel est ton Pokémon préféré ?,Rayquaza,0;1;0;0,Solgaléo,1;0;0;0,Koraidon,0;0;0;1,Mon quoi ?,0;0;1;0
+"Tu gagnes au loto, tu…",Fais un don à une association,0;0;0;1,Fais le tour du monde à pied,1;1;0;0,Te présentes aux prochaines élections,0;1;0;0,Achètes des actions dans une entreprise,0;1;1;0
+"Tu es devenu.e célèbre, pourquoi les gens te connaissent ?",Tu as réunifié les nations,1;0;0;1,Tu as évité une catastrophe,1;0;1;0,Tu as repeuplé une espèce en voix de disparition,0;0;1;1,Tu es devenu.e président.e,1;1;0;0
