@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Poudlard Quiz</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="projectStyle.css">
+	</head>
+	<body>
+
+		<h1>Questions</h1>
+		<p id="q">Question</p>
+		<button onclick="answer1()", id="a1">Answer 1</button>
+		<button onclick="answer2()", id="a2">Answer 2</button>
+		<button onclick="answer3()", id="a3">Answer 3</button>
+		<button onclick="answer4()", id="a4">Answer 4</button>
+		<p id="result"></p>
+	</body>
+	
+	<script>
+	var profile = {c: 0, a: 0, i: 0, g: 0};
+	var questions = [
+		{q:"Tu n’as pas fait ton devoir pour aujourd’hui. Tu…", a1:["Dis que tu l’as oublié à la maison", {c:-1, a: 1, i: 0, g:0}], a2:["Recopies en vif sur ton voisin", {c:1, a: 0, i: 0, g:-1}], a3:["Assumes et dis que tu ne l’as pas fait", {c:1, a: 0, i: 0, g:1}], a4:["T’absentes comme par hasard aux wc", {c:0, a: -1, i: 0, g:1}]},
+		{q:"Ton parfum de glace préféré c’est…", a1:["Chocolat", {c:0, a: -1, i: 0, g:1}], a2:["Carolina reaper", {c:1, a: 0, i: -1, g:0}], a3:["Vanille de Madagascar", {c:-1, a: 0, i: 1, g:0}], a4:["Café / Pistache", {c:0, a: 1, i: 0, g:-1}]},
+		{q:"Comment préfères tu réviser ?", a1:["Sur ordinateur", {c:0, a: 1, i: 0, g:0}], a2:["Sur papier", {c:0, a: 0, i: 1, g:1}], a3:["Comment ça réviser ?", {c:1, a: 0, i: -1, g:0}], a4:["En groupe", {c:0, a: 0, i: 0, g:1}]},
+		{q:"Ton mélange sous-côté préféré c’est...", a1:["Coca-mentos", {c:1, a: 0, i: 0, g:0}], a2:["Pizza-ananas/ketchup", {c:0, a: 1, i: 0, g:0}], a3:["Smoothie carottes-courgette", {c:0, a: 0, i: 1, g:0}], a4:["Pâtes au sucre/chocolat", {c:0, a: 0, i: 0, g:1}]},
+		{q:"Quelle plume est la meilleure pour écrire", a1:["Phoenix", {c:0, a: 1, i: 1, g:0}], a2:["Pigeon", {c:0, a: -1, i: 0, g:1}], a3:["Griffon", {c:1, a: 1, i: 0, g:0}], a4:["Aigle", {c:0, a: 1, i: 0, g:0}]},
+		{q:"Quel est ton moment préféré de la journée", a1:["La nuit", {c:1, a: 0, i: 0, g:0}], a2:["Le matin", {c:0, a: 0, i: 1, g:0}], a3:["L’aube", {c:0, a: 1, i: 0, g:0}], a4:["Le crépuscule", {c:0, a: 0, i: 0, g:1}]},
+		{q:"Quel maison Minecraft préfères tu ?", a1:["Terre 100 %", {c:0, a: -1, i: 0, g:1}], a2:["Le NETHER", {c:1, a: 0, i: 0, g:0}], a3:["Diamant 100 %", {c:0, a: 1, i: 0, g:0}], a4:["Chêne", {c:0, a: 0, i: 1, g:0}]},
+		{q:"Quelle est ta matière moldue préférée ?", a1:["Mathématiques", {c:1, a: 0, i: 1, g:0}], a2:["Français", {c:0, a: 1, i: 1, g:0}], a3:["Art/musique", {c:0, a: 0, i: 0, g:1}], a4:["Économie", {c:0, a: 0, i: 1, g:0}]},
+		{q:"Quel est ta couleur préférée ?", a1:["Vert", {c:0, a: 0, i: 0, g:1}], a2:["Bleu", {c:0, a: 0, i: 1, g:0}], a3:["Rouge", {c:1, a: 0, i: 0, g:0}], a4:["Jaune", {c:0, a: 1, i: 0, g:0}]},
+		{q:"Quel serait ton futur métier ?", a1:["Miss/Mister France", {c:1, a: 1, i: 0, g:0}], a2:["Professeur.e", {c:0, a: 0, i: 1, g:1}], a3:["Médecin", {c:0, a: 0, i: 1, g:1}], a4:["Soldat", {c:1, a: 0, i: 0, g:1}]},
+		{q:"Tu fais tes recherches sur…", a1:["Google Chrome", {c:0, a: 0, i: 1, g:0}], a2:["Darknet", {c:0, a: 1, i: 0, g:-1}], a3:["Chat GPT", {c:0, a: 0, i: 1, g:0}], a4:["Internet Explorer", {c:1, a: 0, i: -1, g:0}]},
+		{q:"Quel est ton Pokémon préféré ?", a1:["Rayquaza", {c:0, a: 1, i: 0, g:0}], a2:["Solgaléo", {c:1, a: 0, i: 0, g:0}], a3:["Koraidon", {c:0, a: 0, i: 0, g:1}], a4:["Mon quoi ?", {c:0, a: 0, i: 1, g:0}]},
+		{q:"Tu gagnes au loto, tu…", a1:["Fais un don à une association", {c:0, a: 0, i: 0, g:1}], a2:["Fais le tour du monde à pied", {c:1, a: 1, i: 0, g:0}], a3:["Te présentes aux prochaines élections", {c:0, a: 1, i: 0, g:0}], a4:["Achètes des actions dans une entreprise", {c:0, a: 1, i: 1, g:0}]},
+		{q:"Tu es devenu.e célèbre, pourquoi les gens te connaissent ?	", a1:["Tu as réunifié les nations", {c:1, a: 0, i: 0, g:1}], a2:["Tu as évité une catastrophe", {c:1, a: 0, i: 1, g:0}], a3:["Tu as repeuplé une espèce en voix de disparition", {c:0, a: 0, i: 1, g:1}], a4:["Tu es devenu.e président.e", {c:1, a: 1, i: 0, g:0}]},
+	];
+	function wait() {
+		if (!pressed ) {
+			setTimeout(wait,1000);
+		};
+	}
+	const answer1 = () => {
+		answer = questions[i]["a1"][1];
+		profile.c += answer.c;
+		profile.a += answer.a;
+		profile.i += answer.i;
+		profile.g += answer.g;
+		pressed = true
+	};
+	var i = 0;
+	var pressed;
+	window.onload = function() {
+	while (i < questions.length) {
+		document.getElementById("q").innerHTML = questions[i].q;
+		document.getElementById("a1").innerHTML = questions[i].a1[0];
+		document.getElementById("a2").innerHTML = questions[i].a2[0];
+		document.getElementById("a3").innerHTML = questions[i].a3[0];
+		document.getElementById("a4").innerHTML = questions[i].a4[0];
+		i++
+		pressed = false;
+		while (!pressed) {
+			wait();
+		};
+	};
+	}
+	document.getElementById("result").innerHTML = profile;
+	
+	</script>
+</html>
