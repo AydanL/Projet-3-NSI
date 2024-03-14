@@ -47,15 +47,11 @@
 		document.getElementById("a4").innerHTML = questions[id].a4[0];
 	};
 	const endQuiz = () => {
-		document.getElementById("q").remove();
-		document.getElementById("a1").remove();
-		document.getElementById("a2").remove();
-		document.getElementById("a3").remove();
-		document.getElementById("a4").remove();
-		document.getElementById("resultC").innerHTML = "Courage: " + profile.c;
-		document.getElementById("resultA").innerHTML = "Ambition: " + profile.a;
-		document.getElementById("resultI").innerHTML = "Intelligence: " + profile.i;
-		document.getElementById("resultG").innerHTML = "Good: " + profile.g;
+		profile.c = (profile.c + 3) * (9/17);
+		profile.a = (profile.a + 3) * (9/17);
+		profile.i = (profile.i + 3) * (9/17);
+		profile.g = (profile.g + 3) * (9/17);
+		document.location='end.html?courage='+profile.c+'&ambition='+profile.a+'&intelligence='+profile.i+'&good='+profile.g;
 	};
 	const answer = (choice) => {
 		let result = questions[progress]["a"+choice][1];
