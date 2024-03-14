@@ -10,11 +10,14 @@
 
 		<h1>Questions</h1>
 		<p id="q">Question</p>
-		<button onclick="answer1()", id="a1">Answer 1</button>
-		<button onclick="answer2()", id="a2">Answer 2</button>
-		<button onclick="answer3()", id="a3">Answer 3</button>
-		<button onclick="answer4()", id="a4">Answer 4</button>
-		<p id="result"></p>
+		<button onclick="answer(1)", id="a1">Answer 1</button>
+		<button onclick="answer(2)", id="a2">Answer 2</button>
+		<button onclick="answer(3)", id="a3">Answer 3</button>
+		<button onclick="answer(4)", id="a4">Answer 4</button>
+		<p id="resultC"></p>
+		<p id="resultA"></p>
+		<p id="resultI"></p>
+		<p id="resultG"></p>
 	</body>
 	
 	<script>
@@ -35,36 +38,38 @@
 		{q:"Tu gagnes au loto, tu…", a1:["Fais un don à une association", {c:0, a: 0, i: 0, g:1}], a2:["Fais le tour du monde à pied", {c:1, a: 1, i: 0, g:0}], a3:["Te présentes aux prochaines élections", {c:0, a: 1, i: 0, g:0}], a4:["Achètes des actions dans une entreprise", {c:0, a: 1, i: 1, g:0}]},
 		{q:"Tu es devenu.e célèbre, pourquoi les gens te connaissent ?	", a1:["Tu as réunifié les nations", {c:1, a: 0, i: 0, g:1}], a2:["Tu as évité une catastrophe", {c:1, a: 0, i: 1, g:0}], a3:["Tu as repeuplé une espèce en voix de disparition", {c:0, a: 0, i: 1, g:1}], a4:["Tu es devenu.e président.e", {c:1, a: 1, i: 0, g:0}]},
 	];
-	function wait() {
-		if (!pressed ) {
-			setTimeout(wait,1000);
-		};
-	}
-	const answer1 = () => {
-		answer = questions[i]["a1"][1];
-		profile.c += answer.c;
-		profile.a += answer.a;
-		profile.i += answer.i;
-		profile.g += answer.g;
-		pressed = true
+	var progress = 0;
+	const setQuestion = (id) => {
+		document.getElementById("q").innerHTML = questions[id].q;
+		document.getElementById("a1").innerHTML = questions[id].a1[0];
+		document.getElementById("a2").innerHTML = questions[id].a2[0];
+		document.getElementById("a3").innerHTML = questions[id].a3[0];
+		document.getElementById("a4").innerHTML = questions[id].a4[0];
 	};
-	var i = 0;
-	var pressed;
-	window.onload = function() {
-	while (i < questions.length) {
-		document.getElementById("q").innerHTML = questions[i].q;
-		document.getElementById("a1").innerHTML = questions[i].a1[0];
-		document.getElementById("a2").innerHTML = questions[i].a2[0];
-		document.getElementById("a3").innerHTML = questions[i].a3[0];
-		document.getElementById("a4").innerHTML = questions[i].a4[0];
-		i++
-		pressed = false;
-		while (!pressed) {
-			wait();
+	const endQuiz = () => {
+		document.getElementById("q").remove();
+		document.getElementById("a1").remove();
+		document.getElementById("a2").remove();
+		document.getElementById("a3").remove();
+		document.getElementById("a4").remove();
+		document.getElementById("resultC").innerHTML = "Courage: " + profile.c;
+		document.getElementById("resultA").innerHTML = "Ambition: " + profile.a;
+		document.getElementById("resultI").innerHTML = "Intelligence: " + profile.i;
+		document.getElementById("resultG").innerHTML = "Good: " + profile.g;
+	};
+	const answer = (choice) => {
+		let result = questions[progress]["a"+choice][1];
+		profile.c += result.c;
+		profile.a += result.a;
+		profile.i += result.i;
+		profile.g += result.g;
+		progress += 1;
+		if (progress < (questions.length)) {
+			setQuestion(progress);
+		} else {
+			endQuiz();
 		};
 	};
-	}
-	document.getElementById("result").innerHTML = profile;
-	
+	setQuestion(0);
 	</script>
 </html>
