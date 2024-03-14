@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Poudlard Quiz</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="projectStyle.css">
+	</head>
+	<body>
+		<button onclick="document.location='quiz.html'">Recommencer le quiz!</button>
+		<h1>Bienvenue à</h1> <h1 id='result'></h1>
+	</body>
+	<script>
+		const dataBase = [
+			{'Name': '(Bill) William Arthur Weasley', 'Courage': 9, 'Ambition': 5, 'Intelligence': 7, 'Good': 9, 'House': 'Gryffindor'}, 
+			{'Name': 'Albus Percival Wulfric Brian Dumbledore', 'Courage': 9, 'Ambition': 8, 'Intelligence': 9, 'Good': 9, 'House': 'Gryffindor'}, 
+			{'Name': 'Albus Severus Potter', 'Courage': 8, 'Ambition': 6, 'Intelligence': 6, 'Good': 8, 'House': 'Slytherin'}, 
+			{'Name': 'Alicia Spinnet', 'Courage': 7, 'Ambition': 6, 'Intelligence': 8, 'Good': 9, 'House': 'Gryffindor'}, 
+			{'Name': 'Angelina Johnson', 'Courage': 8, 'Ambition': 7, 'Intelligence': 8, 'Good': 9, 'House': 'Gryffindor'}, 
+			{'Name': 'Antonin Dolohov', 'Courage': 4, 'Ambition': 8, 'Intelligence': 6, 'Good': 3, 'House': 'Slytherin'}, 
+			{'Name': 'Arthur Weasley', 'Courage': 9, 'Ambition': 5, 'Intelligence': 8, 'Good': 9, 'House': 'Gryffindor'}, 
+			{'Name': 'Augustus Rookwood', 'Courage': 5, 'Ambition': 7, 'Intelligence': 5, 'Good': 3, 'House': 'Slytherin'}, 
+			{'Name': 'Bellatrix Lestrange', 'Courage': 7, 'Ambition': 9, 'Intelligence': 6, 'Good': 1, 'House': 'Slytherin'}, 
+			{'Name': 'Bloody Baron', 'Courage': 3, 'Ambition': 6, 'Intelligence': 5, 'Good': 6, 'House': 'Slytherin'}, 
+			{'Name': 'Cedric Diggory', 'Courage': 7, 'Ambition': 6, 'Intelligence': 8, 'Good': 9, 'House': 'Hufflepuff'}, 
+			{'Name': 'Charles Weasley', 'Courage': 9, 'Ambition': 3, 'Intelligence': 8, 'Good': 9, 'House': 'Gryffindor'}, 
+			{'Name': 'Cho Chang', 'Courage': 7, 'Ambition': 3, 'Intelligence': 8, 'Good': 9, 'House': 'Ravenclaw'}, 
+			{'Name': 'Colin Creevey', 'Courage': 9, 'Ambition': 4, 'Intelligence': 7, 'Good': 9, 'House': 'Gryffindor'}, 
+			{'Name': 'Corban Yaxley', 'Courage': 6, 'Ambition': 9, 'Intelligence': 6, 'Good': 3, 'House': 'Slytherin'}, 
+			{'Name': 'Cormac McLaggen', 'Courage': 4, 'Ambition': 8, 'Intelligence': 4, 'Good': 7, 'House': 'Gryffindor'}, 
+			{'Name': 'Dean Thomas', 'Courage': 8, 'Ambition': 2, 'Intelligence': 7, 'Good': 9, 'House': 'Gryffindor'}, 
+			{'Name': 'Dennis Creevey', 'Courage': 8, 'Ambition': 3, 'Intelligence': 7, 'Good': 9, 'House': 'Gryffindor'}, 
+			{'Name': 'Dolores Jane Umbridge', 'Courage': 2, 'Ambition': 9, 'Intelligence': 5, 'Good': 5, 'House': 'Slytherin'}, 
+			{'Name': 'Draco Malfoy', 'Courage': 2, 'Ambition': 9, 'Intelligence': 8, 'Good': 4, 'House': 'Slytherin'}, 
+			{'Name': 'Edgar Bones', 'Courage': 8, 'Ambition': 4, 'Intelligence': 7, 'Good': 9, 'House': 'Hufflepuff'}, 
+			{'Name': 'Edward Remus Lupin', 'Courage': 9, 'Ambition': 2, 'Intelligence': 8, 'Good': 9, 'House': 'Hufflepuff'}, 
+			{'Name': 'Ernest Macmillan', 'Courage': 7, 'Ambition': 5, 'Intelligence': 7, 'Good': 8, 'House': 'Hufflepuff'}, 
+			{'Name': 'Filius Flitwick', 'Courage': 8, 'Ambition': 7, 'Intelligence': 9, 'Good': 9, 'House': 'Ravenclaw'}, 
+			{'Name': 'Frank Longbottom', 'Courage': 9, 'Ambition': 4, 'Intelligence': 8, 'Good': 9, 'House': 'Gryffindor'}, 
+			{'Name': 'Fred Weasley', 'Courage': 9, 'Ambition': 8, 'Intelligence': 7, 'Good': 9, 'House': 'Gryffindor'}, 
+			{'Name': 'Garrick Ollivander', 'Courage': 6, 'Ambition': 7, 'Intelligence': 9, 'Good': 7, 'House': 'Ravenclaw'}, 
+			{'Name': 'George Weasley', 'Courage': 9, 'Ambition': 8, 'Intelligence': 7, 'Good': 9, 'House': 'Gryffindor'}, 
+			{'Name': 'Gilderoy Lockhart', 'Courage': 1, 'Ambition': 9, 'Intelligence': 3, 'Good': 7, 'House': 'Ravenclaw'}, 
+			{'Name': 'Ginevra (Ginny) Molly Weasley', 'Courage': 8, 'Ambition': 2, 'Intelligence': 6, 'Good': 9, 'House': 'Gryffindor'}, 
+			{'Name': 'Godric Gryffindor', 'Courage': 9, 'Ambition': 6, 'Intelligence': 7, 'Good': 8, 'House': 'Gryffindor'}, 
+			{'Name': 'Graham Montague', 'Courage': 4, 'Ambition': 7, 'Intelligence': 4, 'Good': 5, 'House': 'Slytherin'}, 
+			{'Name': 'Gregory Goyle', 'Courage': 2, 'Ambition': 8, 'Intelligence': 4, 'Good': 4, 'House': 'Slytherin'}, 
+			{'Name': 'Hannah Abbott', 'Courage': 8, 'Ambition': 2, 'Intelligence': 7, 'Good': 9, 'House': 'Hufflepuff'}, 
+			{'Name': 'Harry James Potter', 'Courage': 9, 'Ambition': 4, 'Intelligence': 5, 'Good': 9, 'House': 'Gryffindor'}, 
+			{'Name': 'Helena Ravenclaw', 'Courage': 7, 'Ambition': 8, 'Intelligence': 9, 'Good': 8, 'House': 'Ravenclaw'}, 
+			{'Name': 'Helga Hufflepuff', 'Courage': 7, 'Ambition': 3, 'Intelligence': 7, 'Good': 9, 'House': 'Hufflepuff'}, 
+			{'Name': 'Hermione Jean Granger', 'Courage': 9, 'Ambition': 6, 'Intelligence': 9, 'Good': 9, 'House': 'Gryffindor'}, 
+			{'Name': 'Horace Eugene Flaccus Slughorn', 'Courage': 7, 'Ambition': 7, 'Intelligence': 8, 'Good': 8, 'House': 'Slytherin'}, 
+			{'Name': 'James Potter', 'Courage': 9, 'Ambition': 3, 'Intelligence': 8, 'Good': 9, 'House': 'Gryffindor'}, 
+			{'Name': 'James Sirius Potter', 'Courage': 8, 'Ambition': 6, 'Intelligence': 7, 'Good': 9, 'House': 'Gryffindor'}, 
+			{'Name': 'Justin Finch-Fletchley', 'Courage': 8, 'Ambition': 3, 'Intelligence': 7, 'Good': 9, 'House': 'Hufflepuff'}, 
+			{'Name': 'Katie Bell', 'Courage': 9, 'Ambition': 7, 'Intelligence': 8, 'Good': 9, 'House': 'Gryffindor'}, 
+			{'Name': 'Lavender Brown', 'Courage': 7, 'Ambition': 7, 'Intelligence': 5, 'Good': 8, 'House': 'Gryffindor'}, 
+			{'Name': 'Lee Jordan\xa0', 'Courage': 7, 'Ambition': 6, 'Intelligence': 6, 'Good': 9, 'House': 'Gryffindor'}, 
+			{'Name': 'Lily J. Potter', 'Courage': 9, 'Ambition': 1, 'Intelligence': 9, 'Good': 9, 'House': 'Gryffindor'}, 
+			{'Name': 'Lucius Malfoy', 'Courage': 3, 'Ambition': 9, 'Intelligence': 5, 'Good': 2, 'House': 'Slytherin'}, 
+			{'Name': 'Luna Lovegood', 'Courage': 9, 'Ambition': 4, 'Intelligence': 8, 'Good': 9, 'House': 'Ravenclaw'}, 
+			{'Name': 'Marcus Flint', 'Courage': 3, 'Ambition': 8, 'Intelligence': 2, 'Good': 5, 'House': 'Slytherin'}, 
+			{'Name': 'Michael Corner', 'Courage': 5, 'Ambition': 8, 'Intelligence': 8, 'Good': 7, 'House': 'Ravenclaw'}, 
+			{'Name': 'Millicent Bulstrode', 'Courage': 4, 'Ambition': 7, 'Intelligence': 3, 'Good': 5, 'House': 'Slytherin'}, 
+			{'Name': 'Minerva McGonagall', 'Courage': 9, 'Ambition': 4, 'Intelligence': 9, 'Good': 9, 'House': 'Gryffindor'}, 
+			{'Name': 'Molly Weasley', 'Courage': 9, 'Ambition': 1, 'Intelligence': 8, 'Good': 9, 'House': 'Gryffindor'}, 
+			{'Name': 'Myrtle Elizabeth Warren (Moaning Myrtle)', 'Courage': 7, 'Ambition': 6, 'Intelligence': 8, 'Good': 9, 'House': 'Ravenclaw'}, 
+			{'Name': 'Narcissa Malfoy', 'Courage': 2, 'Ambition': 7, 'Intelligence': 5, 'Good': 4, 'House': 'Slytherin'}, 
+			{'Name': 'Neville Longbottom', 'Courage': 6, 'Ambition': 3, 'Intelligence': 5, 'Good': 9, 'House': 'Gryffindor'}, 
+			{'Name': 'Nicholas de Mimsy-Porpington', 'Courage': 9, 'Ambition': 6, 'Intelligence': 8, 'Good': 9, 'House': 'Gryffindor'}, 
+			{'Name': 'Nymphadora Tonks', 'Courage': 9, 'Ambition': 5, 'Intelligence': 8, 'Good': 9, 'House': 'Hufflepuff'}, 
+			{'Name': 'Oliver Wood', 'Courage': 8, 'Ambition': 7, 'Intelligence': 8, 'Good': 9, 'House': 'Gryffindor'}, 
+			{'Name': 'Padma Patil', 'Courage': 8, 'Ambition': 3, 'Intelligence': 8, 'Good': 9, 'House': 'Ravenclaw'}, 
+			{'Name': 'Pansy Parkinson', 'Courage': 2, 'Ambition': 8, 'Intelligence': 5, 'Good': 4, 'House': 'Slytherin'}, 
+			{'Name': 'Parvati Patil', 'Courage': 8, 'Ambition': 5, 'Intelligence': 7, 'Good': 9, 'House': 'Gryffindor'}, 
+			{'Name': 'Penelope Clearwater', 'Courage': 7, 'Ambition': 7, 'Intelligence': 8, 'Good': 9, 'House': 'Ravenclaw'}, 
+			{'Name': 'Percy Ignatius Weasley', 'Courage': 8, 'Ambition': 8, 'Intelligence': 9, 'Good': 8, 'House': 'Gryffindor'}, 
+			{'Name': 'Peter Pettigrew', 'Courage': 2, 'Ambition': 8, 'Intelligence': 5, 'Good': 2, 'House': 'Gryffindor'}, 
+			{'Name': 'Pomona Sprout', 'Courage': 9, 'Ambition': 5, 'Intelligence': 7, 'Good': 9, 'House': 'Hufflepuff'}, 
+			{'Name': 'Quirinus Quirrell', 'Courage': 2, 'Ambition': 9, 'Intelligence': 5, 'Good': 2, 'House': 'Ravenclaw'}, 
+			{'Name': 'Regulus Arcturus Black', 'Courage': 6, 'Ambition': 9, 'Intelligence': 5, 'Good': 4, 'House': 'Slytherin'}, 
+			{'Name': 'Remus John Lupin', 'Courage': 9, 'Ambition': 2, 'Intelligence': 8, 'Good': 9, 'House': 'Gryffindor'}, 
+			{'Name': 'Romilda Vane', 'Courage': 5, 'Ambition': 8, 'Intelligence': 5, 'Good': 7, 'House': 'Gryffindor'}, 
+			{'Name': 'Ronald Bilius Weasley', 'Courage': 8, 'Ambition': 6, 'Intelligence': 5, 'Good': 9, 'House': 'Gryffindor'}, 
+			{'Name': 'Rose Granger-Weasley', 'Courage': 8, 'Ambition': 4, 'Intelligence': 9, 'Good': 9, 'House': 'Gryffindor'}, 
+			{'Name': 'Rowena Ravenclaw', 'Courage': 7, 'Ambition': 7, 'Intelligence': 9, 'Good': 8, 'House': 'Ravenclaw'}, 
+			{'Name': 'Rubeus Hagrid', 'Courage': 8, 'Ambition': 1, 'Intelligence': 5, 'Good': 9, 'House': 'Gryffindor'}, 
+			{'Name': 'Salazar Slytherin', 'Courage': 5, 'Ambition': 9, 'Intelligence': 7, 'Good': 3, 'House': 'Slytherin'}, 
+			{'Name': 'Scorpius Hyperion Malfoy', 'Courage': 7, 'Ambition': 7, 'Intelligence': 7, 'Good': 7, 'House': 'Slytherin'},
+			{'Name': 'Seamus Finnigan', 'Courage': 7, 'Ambition': 4, 'Intelligence': 5, 'Good': 8, 'House': 'Gryffindor'}, 
+			{'Name': 'Severus Snape', 'Courage': 9, 'Ambition': 8, 'Intelligence': 9, 'Good': 8, 'House': 'Slytherin'}, 
+			{'Name': 'Sirius Black', 'Courage': 9, 'Ambition': 2, 'Intelligence': 8, 'Good': 9, 'House': 'Gryffindor'}, 
+			{'Name': 'Susan Bones', 'Courage': 7, 'Ambition': 2, 'Intelligence': 7, 'Good': 9, 'House': 'Hufflepuff'}, 
+			{'Name': 'Sybill Patricia Trelawney', 'Courage': 5, 'Ambition': 8, 'Intelligence': 6, 'Good': 7, 'House': 'Ravenclaw'}, 
+			{'Name': 'Terry Boot', 'Courage': 7, 'Ambition': 5, 'Intelligence': 8, 'Good': 8, 'House': 'Ravenclaw'}, 
+			{'Name': 'Tom Marvolo Riddle', 'Courage': 6, 'Ambition': 9, 'Intelligence': 8, 'Good': 1, 'House': 'Slytherin'}, 
+			{'Name': 'Vincent Crabbe', 'Courage': 2, 'Ambition': 8, 'Intelligence': 4, 'Good': 4, 'House': 'Slytherin'}, 
+			{'Name': 'Walden Macnair', 'Courage': 4, 'Ambition': 7, 'Intelligence': 3, 'Good': 4, 'House': 'Slytherin'}, 
+			{'Name': 'Zacharias Smith', 'Courage': 5, 'Ambition': 8, 'Intelligence': 6, 'Good': 8, 'House': 'Hufflepuff'}
+		];
+		const knn = (profile, data, k=5) => {
+			let adaptedData = [];
+			let distCourage;
+			let distAmbition;
+			let distIntelligence;
+			let distGood;
+			let distOverall;
+			for (let i = 0; i < data.length; i++) {
+				distCourage = profile.c - data[i]['Courage'];
+				distAmbition = profile.a - data[i]['Ambition'];
+				distIntelligence = profile.i - data[i]['Intelligence'];
+				distGood = profile.g - data[i]['Good'];
+				distOverall = (distCourage**2 + distAmbition**2 + distIntelligence**2 + distGood**2) ** 0.5;
+				adaptedData.push({
+					name: data[i]['Name'],
+					house: data[i]['House'],
+					courage: distCourage,
+					ambition: distAmbition,
+					intelligence: distIntelligence,
+					good: distGood,
+					distance: distOverall
+				});
+			};
+			adaptedData.sort((a, b) => {return a.distance - b.distance});
+			houses = {'Gryffindor': 0, 'Slytherin': 0, 'Hufflepuff': 0, 'Ravenclaw': 0};
+			for (let j = 0; j < k; j++) {
+				houses[adaptedData[j].house]++
+			};
+			let housesList = [
+				['Gryffindor', houses.Gryffindor],
+				['Slytherin', houses.Slytherin],
+				['Ravenclaw', houses.Hufflepuff],
+				['Hufflepuff', houses.Ravenclaw]
+			];
+			console.log(houses['Ravenclaw']);
+			console.log(housesList[2][1]);
+			housesList.sort((a, b) => {return b[1] - a[1]});
+			return housesList[0][0];
+		};
+		const urlParams = new URLSearchParams(window.location.search);
+		const courage = urlParams.get('courage');
+		const ambition = urlParams.get('ambition');
+		const intelligence = urlParams.get('intelligence');
+		const good = urlParams.get('good');
+		const profile = {c: courage, a: ambition, i: intelligence, g: good};
+		document.getElementById('result').innerHTML = knn(profile, dataBase);
+	</script>
+</html>
