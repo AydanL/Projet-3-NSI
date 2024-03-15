@@ -47,10 +47,6 @@
 		document.getElementById("a4").innerHTML = questions[id].a4[0];
 	};
 	const endQuiz = () => {
-		profile.c = (profile.c + 3) * (9/17);
-		profile.a = (profile.a + 3) * (9/17);
-		profile.i = (profile.i + 3) * (9/17);
-		profile.g = (profile.g + 3) * (9/17);
 		document.location='end.html?courage='+profile.c+'&ambition='+profile.a+'&intelligence='+profile.i+'&good='+profile.g;
 	};
 	const answer = (choice) => {
