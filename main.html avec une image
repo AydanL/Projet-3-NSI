@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Poudlard Quiz</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="projectStyle.css">
+	</head>
+	<body>
+		<h1>Bienvenue à Poudlard</h1>
+		
+		<p>Répondez aux questions suivantes pour savoir quelle maison de sorciers est faite pour vous!</p>
+		<button onclick="document.location='quiz.html'">Démarrer le quiz!</button>
+		<center>
+<img src="harry.jpg" width=500>
+</center>
+	</body>
+	
+</html>
