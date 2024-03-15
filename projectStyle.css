@@ -1,10 +1,38 @@
-h1 {
-	font-size: 30;
-	font-family: armenian;
-	color: #222222;
+body{
+        background:#ced4da;
+        width:800px;
+        padding: 10px 30px 0 30px;
+        font-family: 'Century Schoolbook', century ;
+        font-size: 18px; 
+        line-height: 24px;
 }
-p {
-	font-size: 100;
-	font-family: armenian;
-	color: #000000;
+
+h1{ 
+        font-style:italic;
+      	color: red;
+        font-size: 35px;
+        text-align: center;  
+        padding-bottom: 7px; 
+        font-family:Arial;
+	font-style:italic;
+        margin:10px 30px 0 30px;
+	color:#cd5e77;
+}
+p   {
+	font-size:16px;
+	margin: 0 0 0 0; 
+	border-left: 1px solid #999;
+	padding: 5px 0 0 10px;
+	font-family: 'Arial';
+       
+}
+button{
+	font-size:25px;
+	margin: 10px 10px 10px 10px; 
+       	border-left: 1px solid #999;
+       	padding: 10px 77 5 100px;
+       	font-family: 'Century Schoolbook';
+       	color :red;
+       	display: block;
+       	margin : 20PX 0;
 }
